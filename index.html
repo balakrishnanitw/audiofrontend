@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="static/woo.css"/>
+  </head>
+  <body>
+    
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted"> Emotion Recognition </h3>
+      </div>
+	  <a>
+	  <div >
+        <p>(This application identifies emotion not from speech to text Api but uses physical properties of voice such as pitch, tone, speed, power,wavelet features and uses machine learning classsification techniques to recognise emotion in the audio)</p>
+    </div>
+	</a>
+    <hr style="border: 1px solid #c1c1c1;"/>
+      <div class="form-file">
+      pick an audio that interests you
+      <form action="upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file"><br /><br />
+        <input type="submit" value="Analyse" align="top" style="width: 80px; height: 50px;" >
+		<div class="video-picking--label">
+          Or paste your audio url here
+        </div>
+        <div class="video-picking--input-container">
+          <input class="video-picking--input" type="text" name="name" placeholder="url for audio">
+
+          <span class="video-picking--input-btn icon icon-right-arrow" type="button" name="button">
+           </span>
+        </div>
+		<a>
+		<div>
+		<img src ="https://s16.postimg.org/l3mtykvfp/download.jpg">
+        <audio src="http://wav-sounds.com/various/babycry.wav" controls></audio>
+		baby crying
+		<input type="submit" value="pick">
+		</div>
+		</a>
+		
+		<div>
+		<img src ="https://s15.postimg.org/dm5rqrqyz/bnd.jpg">
+		<audio src="http://wav-sounds.com/movie/jamesbond.wav" controls></audio>
+		James bond
+		<input type="submit" value="pick">
+		</div>
+		<a>
+		<div>
+		<img src ="https://s21.postimg.org/jyxv7k7yf/image.jpg">
+		<audio src="http://wav-sounds.com/funny/hell.wav" controls></audio>
+		    see u in hell
+		<input type="submit" value="pick">
+		</div>
+		</a>
+      </form>
+      </div>
+    </div>
+  </body>
+</html>    
