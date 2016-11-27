@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block body %}
+
+    
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted"> Emotion Recognition </h3>
+      </div>
+	  <a>
+	  <div >
+        <p>(This application identifies emotion not from speech to text Api but uses physical properties of voice such as pitch, tone, speed, power,wavelet features and uses machine learning classsification techniques to recognise emotion in the audio)</p>
+    </div>
+	</a>
+    <hr style="border: 1px solid #c1c1c1;"/>
+      <div class="form-file">
+      
+      <form action="upload" method="post" enctype="multipart/form-data">
+        
+	  
+     pick an audio that interests you
+     <input type="file" name="file"><br /><br />
+     <input type="submit" value="Analyse" align="top" style="width: 80px; height: 50px;" >     
+   
+     <audio controls="controls" autoplay="autoplay"></audio>
+    <ul>
+    {% for song in songs %}
+        <li><a href="javascript:void(0);">{{song}}</a></li>
+    {% endfor %}
+    </ul>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            Results:
+            <pre>
+                {% for message in messages %}
+{{ message }}
+                {% endfor %}
+            </pre>
+        {% endif %}
+    {% endwith %}
+    <script type='text/javascript'>
+        {% for song in songs %} 
+            $('li').click(function(){
+                var str = $(this).text()
+                $('audio').attr('src', '/static/music/'+str);
+            });
+        {% endfor %}
+    </script>
+{% endblock %}
+{% block nav %}
+<li><a href="{{url_for('index')}}">back</a></li>
+{% endblock %}
+
+		
