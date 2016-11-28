@@ -1,17 +1,15 @@
-# -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, send_from_directory
 from werkzeug import secure_filename
-from flask import jsonify
-import os
-from MainProject import predict
+import os 
 from pyautogui  import pymsgbox 
+from MainProject import predict
+
 
 app = Flask(__name__)
-
-app.config['UPLOAD_FOLDER'] = "C:\\Workspace\\Emotion-Recognition\\t\\src\\audio"
+app.config['UPLOAD_FOLDER'] = "C:\\Workspace\\Emotion-Recognition\\t\\src\\static\\music"
 app.config['ALLOWED_EXTENSIONS'] = set(['wav'])    
 def join():
-    return ''.join(['Recognised','Emotion ','in the audio file ','is ','angry'])
+    return ''.join(['uploaded','file'])
 def add():
     return join()    
 # For a given file, return whether it's an allowed type or not
@@ -26,13 +24,17 @@ def index():
                        
     
 @app.route('/upload', methods=['POST','GET'])
+ #render_template('complete.html')
 def upload():
-    x=add()
+    x=join()
+    
     file = request.files['file']
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))        
-        return pymsgbox.alert(x)
+       filename = secure_filename(file.filename)
+       file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+       return pymsgbox.alert(x)
+   
+      
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
@@ -41,8 +43,7 @@ def uploaded_file(filename):
 @app.route('/music',methods=['POST','GET'])
 def music():
     y=predict()
-    return pymsgbox.alert(y)                               
-
+    return pymsgbox.alert(y)                             
 
 port = os.getenv('PORT', '8000')
 if __name__ == "__main__":
