@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block body %}
+
+    
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted"> Emotion Recognition </h3>
+      </div>
+	  <a>
+	  <div = header>
+	  
+        <pre>         This application identifies emotion from speech using the techniques of Feature Recognition and Classification. The features used are LPC(Linear Predictive Coding) 
+		                     and MFCC(Mel-frequency Cepstral Coefficients) and uses SVM(Support Vector Machines) for classsification 
+	    </pre> 
+    </div>
+	</a>
+    <hr style="border: 1px solid #c1c1c1;"/>
+      <div class="form-file">
+    <form method="POST" enctype="multipart/form-data"> 
+    
+      	   
+     pick an audio that interests you
+     <input type="file" name="file"><br /><br />
+     <button formaction="upload" align="top" style="width: 80px; height: 50px;" >Upload</button>
+	 <button formaction="music" align="top" style="width: 80px; height: 50px;" >Analyse</button>
+      <a>
+      <div>	  
+     <img src ="https://s16.postimg.org/v78wr50v9/kids_are_talking_by_the_door.jpg" width="256" height="256">
+     
+	 </div>
+	
+    <ul>
+	<audio controls="controls" autoplay="autoplay"></audio>
+    {% for song in songs %}
+        <li><a href="javascript:void(0);">{{song}}</a></li>
+    {% endfor %}
+    </ul>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            Results:
+            <pre>
+                {% for message in messages %}
+{{ message }}
+                {% endfor %}
+            </pre>
+        {% endif %}
+    {% endwith %}
+    <script type='text/javascript'>
+        {% for song in songs %} 
+            $('li').click(function(){
+                var str = $(this).text()
+                $('audio').attr('src', '/static/music/'+str);
+            });
+        {% endfor %}
+    </script>
+	 </a>
+	 <a>
+      <div>	  
+     <img src ="https://s11.postimg.org/t0dn8d66r/PUP_15_MA0003_01_P.jpg" width="256" height="256">
+     
+	 </div>
+	 </a>
+{% endblock %}
+{% block nav %}
+<li><a href="{{url_for('index')}}">back</a></li>
+{% endblock %}
+
+		
