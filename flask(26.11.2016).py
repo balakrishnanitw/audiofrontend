@@ -4,7 +4,7 @@ from werkzeug import secure_filename
 from flask import jsonify
 import os
 from MainProject import predict
-
+from pyautogui  import pymsgbox 
 
 app = Flask(__name__)
 
@@ -21,27 +21,27 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET','POST'])
 def index():
-    return render_template("index.html")
+    songs = os.listdir('static/music')
+    return render_template("index.html",songs=songs)
                        
     
 @app.route('/upload', methods=['POST','GET'])
 def upload():
-    x=predict()
+    x=add()
     file = request.files['file']
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))        
-        return jsonify(x) #render_template('complete.html')
+        return pymsgbox.alert(x)
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
-@app.route('/<filename>')
-def song(filename):
-    return render_template('play.html',
-                        title = filename,
-                        music_file = filename)                               
+@app.route('/music',methods=['POST','GET'])
+def music():
+    y=predict()
+    return pymsgbox.alert(y)                               
 
 
 port = os.getenv('PORT', '8000')
